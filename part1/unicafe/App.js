@@ -1,4 +1,4 @@
-// Unicafe
+// Unicafe- Display stat in table
 import React, { useState } from 'react'
 
 const Button = ({ handleClick, text }) => (
@@ -8,8 +8,10 @@ const Button = ({ handleClick, text }) => (
 )
 
 const Stat = (props) => (
-  <p> {props.text}
-  {props.value} </p>
+<tr>
+  <td> {props.text} </td> 
+  <td> {props.value} </td> 
+</tr>
 )
 
 
@@ -28,12 +30,16 @@ const Statistics = (props) => {
 
   return (
     <div>
+    <table>
+    <tbody>
       <Stat text="Good: " value={props.good}/>
       <Stat text="Neutral: " value={props.neutral}/>
       <Stat text="Bad: " value={props.bad}/>
       <Stat text="All: " value={all()}/>
       <Stat text="Average: " value={score()/all()}/>
       <Stat text="Positive: " value={100*props.good/all() +"%"}/>
+    </tbody>
+    </table>
     </div>
   )
 }
