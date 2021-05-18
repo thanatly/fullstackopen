@@ -12,21 +12,27 @@ const App = () => {
   const [good, setGood] = useState(0)
   const [neutral, setNeutral] = useState(0)
   const [bad, setBad] = useState(0)
+  // I feel like there is a better solution than setting new states :/
+  const [score, setScore] = useState(0) 
+  const [click, setClick] = useState(0)
 
 
   const handleGoodClick = () => {
-    //setAll(allClicks.concat('L')) 
     setGood(good + 1)
+    setScore(score + 1)
+    setClick(click + 1)
+
   }
 
   const handleNeutralClick = () => {
-    //setAll(allClicks.concat('R'))
     setNeutral(neutral + 1)
+    setClick(click + 1)
   }
 
   const handleBadClick = () => {
-    //setAll(allClicks.concat('R'))
     setBad(bad + 1)
+    setScore(score - 1)
+    setClick(click + 1)
   }
 
  
@@ -41,6 +47,9 @@ const App = () => {
       <li> Good: {good} </li>
       <li> Neutral: {neutral} </li>
       <li> Bad: {bad} </li>
+      <li> All: {click} </li>
+      <li> Average: {score/click} </li>
+      <li> Positive: {100*good/click} % </li>
     </ul>
     </div>
   )
