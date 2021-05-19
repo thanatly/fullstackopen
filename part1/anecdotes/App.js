@@ -33,8 +33,19 @@ const App = () => {
     setVote(updatedVote)
   }
 
+  const Popular = () => {
+    const indexOfMaxValue = vote.reduce((iMax, x, i, arr) => x > arr[iMax] ? i : iMax, 0);
+
+    return(
+    <div>
+    {anecdotes[indexOfMaxValue]} has {vote[indexOfMaxValue]} votes
+    </div>
+    )
+  }
+
   return (
     <div>
+    <h1> Annecdote of the day </h1>
     <p>
       {anecdotes[selected]}
     </p>
@@ -43,8 +54,10 @@ const App = () => {
     </p> 
     <Button handleClick={clickVote} text= "Vote" />
     <Button handleClick={randomText} text= "Next" />
+    
+    <h1> Most popular annecdote</h1>
+    <Popular />
     </div>
-
   )
 }
 
