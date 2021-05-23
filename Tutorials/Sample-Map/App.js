@@ -1,18 +1,23 @@
 // Concept: functional programing- map
 import React from 'react'
 
-//Destructuring
+// Seperate into another component
+const Note = ({ note }) => {
+  return (
+    <li>{note.content}</li>
+  )
+}
+
+// Destructuring
 const App = ({ notes }) => {
   return (
-    // The value of the variable must be rendered inside of curly braces.
-    // If not, the parameter becomes a plain text
+    // The key attribute must now be defined for the Note components
+    // Not for the li tags like before
     <div>
       <h1>Notes</h1>
       <ul>
         {notes.map(note => 
-          <li key={note.id}>
-            {note.content} 
-          </li>
+          <Note key={note.id} note={note} />
         )}
       </ul>
     </div>
