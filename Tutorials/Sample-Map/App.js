@@ -1,18 +1,11 @@
 // Concept: functional programing- map
 import React from 'react'
+// Import from a new module
+import Note from './components/Note'
 
-// Seperate into another component
-const Note = ({ note }) => {
-  return (
-    <li>{note.content}</li>
-  )
-}
-
-// Destructuring
 const App = ({ notes }) => {
   return (
-    // The key attribute must now be defined for the Note components
-    // Not for the li tags like before
+
     <div>
       <h1>Notes</h1>
       <ul>
