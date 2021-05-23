@@ -1,9 +1,8 @@
 // Concept: functional programing- map
 import React from 'react'
 
-const App = (props) => {
-  const { notes } = props
-
+//Destructuring
+const App = ({ notes }) => {
   return (
     // The value of the variable must be rendered inside of curly braces.
     // If not, the parameter becomes a plain text
