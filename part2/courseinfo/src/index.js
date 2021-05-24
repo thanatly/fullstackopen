@@ -1,35 +1,8 @@
-import React from 'react';
 import ReactDOM from 'react-dom';
+import App from './App.js'
 
 
-const Content = ({ course }) => {
-  const headers = course.name
-  const parts = course.parts
-  const exTotal = parts.reduce((s, p) => s + p.exercises,0);
-
-  return (
-    <div>
-      <h1>{headers}</h1>
-      {parts.map(part =>
-        <p key={part.id}>
-        {part.name} {part.exercises}
-        </p>
-      )}
-      <p>Total {exTotal} </p>
-    </div>
-  )
-}
-
-// Iterate over an array of courses
-const Display = ({ courses }) => {
-    return(
-      courses.map((course,index) => <Content course={course} 
-        key={course.id}/>)
-      )
-}
-
-const App = () => {
-  const courses = [
+const courses = [
     {
       name: 'Half Stack application development',
       id: 1,
@@ -74,14 +47,7 @@ const App = () => {
     }
   ]
 
-  //Check if the app is working
-  console.log('App works...')
-
-  return (
-  <div>
-  <Display courses={courses}/>
-  </div>
-  )
-}
-
-ReactDOM.render(<App />, document.getElementById('root'))
+  ReactDOM.render(
+  <App courses={courses} />,
+  document.getElementById('root')
+)
