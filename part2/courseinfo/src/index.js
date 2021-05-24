@@ -10,15 +10,21 @@ const Header = ({ course }) => {
 const Content = ({ course }) => {
   const parts = course.parts
 
+  // Calculate total exercises
+  // Need to specify InitialValue as 0 in reducer 
+  const exTotal = parts.reduce((s, p) => s + p.exercises,0);
+
+  // Print out Total in the console
+  console.log({exTotal})
+
   return (
     <div>
-      <ul>
       {parts.map(part =>
-        <li key={part.id}>
+        <p key={part.id}>
         {part.name} {part.exercises}
-        </li>
+        </p>
       )}
-      </ul>
+      <p>Total {exTotal} </p>
     </div>
   )
 }
@@ -46,6 +52,7 @@ const App = () => {
     ]
   }
 
+  //Check if the app is working
   console.log('App works...')
 
   return (
