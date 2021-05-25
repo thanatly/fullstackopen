@@ -1,13 +1,18 @@
-// Concept: Forms
+// Concept: Controlled components
 import React, { useState } from 'react'
 import Note from './components/Note'
 
 const App = (props) => {
   const [notes, setNotes] = useState(props.notes)
 
+  const [newNote, setNewNote] = useState(
+    'a new note...' // This text will appear in input box
+    // This alone will show an error in the console that 
+    // the input text cannot be edited
+  ) 
+
   const addNote = (event) => {
     event.preventDefault()
-    // event.target in this case is form, which defined in the component
     console.log('button clicked', event.target)
   }
 
@@ -20,7 +25,7 @@ const App = (props) => {
         )}
       </ul>
       <form onSubmit={addNote}>
-        <input />
+        <input value={newNote} />
         <button type="submit">save</button>
       </form>   
     </div>
