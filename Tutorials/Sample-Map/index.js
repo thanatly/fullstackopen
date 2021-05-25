@@ -26,7 +26,3 @@ ReactDOM.render(
   <App notes={notes} />,
   document.getElementById('root')
 )
-
-const result = notes.map(note => note.id) //The function gets a note object as a parameter, and returns the value of its id field.
-
-console.log(result)
