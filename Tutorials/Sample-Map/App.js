@@ -6,14 +6,27 @@ const App = (props) => {
   const [notes, setNotes] = useState(props.notes)
 
   const [newNote, setNewNote] = useState(
-    'a new note...' // This text will appear in input box
-    // This alone will show an error in the console that 
-    // the input text cannot be edited
+    'a new note...'
   ) 
 
-  const addNote = (event) => {
-    event.preventDefault()
-    console.log('button clicked', event.target)
+const addNote = (event) => {
+  event.preventDefault()
+  const noteObject = {
+    content: newNote,
+    date: new Date().toISOString(),
+    important: Math.random() < 0.5,
+    id: notes.length + 1,
+  }
+
+  // Add to existing notes
+  setNotes(notes.concat(noteObject))
+  // Reset NewNote
+  setNewNote('')
+}
+
+  const handleNoteChange = (event) => {
+    console.log(event.target.value)
+    setNewNote(event.target.value)
   }
 
   return (
@@ -25,7 +38,9 @@ const App = (props) => {
         )}
       </ul>
       <form onSubmit={addNote}>
-        <input value={newNote} />
+        <input value={newNote} 
+          onChange={handleNoteChange}
+        />
         <button type="submit">save</button>
       </form>   
     </div>
