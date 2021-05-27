@@ -21,7 +21,7 @@ const App = () => {
 
   if (personsName.includes(newName))
   {
-    window.alert("Already there")
+    window.alert(`${newName} is already added to phonebook`)
   }
   else
   {
