@@ -6,6 +6,7 @@ const App = () => {
   const [ persons, setPersons ] = useState([
     { name: 'Arto Hellas' }
   ]) 
+
   const [ newName, setNewName ] = useState('')
 
   const addName = (event) => {
@@ -15,13 +16,23 @@ const App = () => {
     name: newName
   }
 
-  setPersons(persons.concat(newObject))
+  // Create a new array to store only names
+  const personsName = persons.map(person => person.name)
+
+  if (personsName.includes(newName))
+  {
+    window.alert("Already there")
+  }
+  else
+  {
+    setPersons(persons.concat(newObject))
+  }
+
   setNewName('')
   
   }
 
   const handleNameChange = (event) => {
-    console.log(event.target.value)
     setNewName(event.target.value)
   }
 
@@ -43,12 +54,16 @@ const App = () => {
       <h2>Numbers</h2>
       <ul>
         {persons.map(person => 
-          <li> {person.name} </li>
+          <li key={person.name}> {person.name} </li>
         )}
       </ul>
     </div>
 
   )
+
 }
+
+
+
 
 export default App
