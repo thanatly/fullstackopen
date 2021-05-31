@@ -1,7 +1,13 @@
-// Part2 ex 2.6-2.10
+// Passing components in React only go one way, parent--> child
+// Solve by using props
 
 import React, { useState } from 'react'
+import Filter from './components/Filter'
+import PersonForm from './components/PersonForm'
+import Display from './components/Display'
 
+// All objects that need to be passed down 
+// --> define in App
 const App = () => {
   const [ persons, setPersons ] = useState([
     { name: 'Arto Hellas', num: '040-123456' },
@@ -9,13 +15,28 @@ const App = () => {
     { name: 'Dan Abramov', num: '12-43-234345' }
   ]) 
 
-  const personsName = persons.map(person => person.name)
-
   const [ newName, setNewName ] = useState('')
   const [ newNum, setNewNum ] = useState('')
   const [ newFilter, setNewFilter ] = useState('')
+  const [ searchResults, setSearchResults ] = useState([])
 
-  const addContact = (event) => {
+  const handleNameChange = (event) => {
+    console.log(event.target.value)
+    setNewName(event.target.value)
+    }
+
+  const handleNumChange = (event) => {
+    console.log(event.target.value)
+    setNewNum(event.target.value)
+    }
+
+  const handleSearch = (event) => {
+    console.log(event.target.value)
+    setNewFilter(event.target.value)
+    }
+
+// Contact addition
+const addContact = (event) => {
   event.preventDefault()
 
   const newObject = {
@@ -23,7 +44,7 @@ const App = () => {
     num: newNum
   }
 
-  if (personsName.includes(newName))
+  if (persons.map(person => person.name).includes(newName))
   {
     window.alert(`${newName} is already added to phonebook`)
   }
@@ -37,69 +58,17 @@ const App = () => {
   
   }
 
-  const handleNameChange = (event) => {
-    setNewName(event.target.value)
-  }
-
-  const handleNumChange = (event) => {
-    setNewNum(event.target.value)
-  }
-
-  const handleSearch = (event) => {
-    setNewFilter(event.target.value)
-
-  }
-
-  const searchResult = persons.filter(person => person.name.startsWith(newFilter))
-  console.log(newFilter)
-  console.log(searchResult)
-
   return (
     <div>
       <h2>Phonebook</h2>
-      <div>
-          Filter show with: 
-          <input
-            value={newFilter}
-            onChange={handleSearch}
-          />
-      </div>
-      <h2>Add a new</h2>
-      <form onSubmit = {addContact} >
-        <div>
-          name: 
-          <input 
-            value={newName}
-            onChange={handleNameChange}
-          />
-        </div>
-        <div>
-          number: 
-          <input 
-            value={newNum}
-            onChange={handleNumChange}
-          />
-        </div>
-
-        <div>
-          <button type="submit">add</button>
-        </div>
-      </form>
-      <h2>All numbers</h2>
-      <ul>
-        {persons.map(person => 
-          <li key={person.name}> {person.name} {person.num} </li>
-        )}
-      </ul>
-      <h2>Search result</h2>
-      <ul>
-        {searchResult.map(person => 
-          <li key={person.name}> {person.name} {person.num} </li>
-        )}
-      </ul>
-
+      <Filter newFilter={newFilter} handleSearch={handleSearch} />
+      <h3>Add a new</h3>
+      <PersonForm addContact={addContact} newName={newName} 
+        newNum={newNum} handleNameChange={handleNameChange} handleNumChange={handleNumChange}
+      />
+      <h3>Numbers</h3>
+      <Display newFilter={newFilter} persons={persons}/>
     </div>
-
   )
 
 }
