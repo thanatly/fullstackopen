@@ -8,7 +8,7 @@ const Display = (props) => {
 	 <div>
 	  <ul>
         {searchResults.map(person => 
-          <li key={person.name}> {person.name} {person.number} </li>
+          <li key={person.name}> {person.name} {person.num} </li>
         )}
       </ul>
      </div>	
