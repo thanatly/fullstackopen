@@ -1,24 +1,30 @@
-// Passing components in React only go one way, parent--> child
-// Solve by using props
+// Fetch persons from jsondb
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Filter from './components/Filter'
 import PersonForm from './components/PersonForm'
 import Display from './components/Display'
+import axios from 'axios'
 
-// All objects that need to be passed down 
-// --> define in App
 const App = () => {
-  const [ persons, setPersons ] = useState([
-    { name: 'Arto Hellas', num: '040-123456' },
-    { name: 'Ada Lovelace', num: '39-44-5323523' },
-    { name: 'Dan Abramov', num: '12-43-234345' }
-  ]) 
+  const [ persons, setPersons ] = useState([]) 
 
   const [ newName, setNewName ] = useState('')
   const [ newNum, setNewNum ] = useState('')
   const [ newFilter, setNewFilter ] = useState('')
-  const [ searchResults, setSearchResults ] = useState([])
+
+  useEffect(() => {
+    console.log('effect')
+    axios
+      .get('http://localhost:3001/persons')
+      .then(response => {
+        console.log('promise fulfilled')
+        console.log(response.data)
+        setPersons(response.data)
+      })
+  }, [])
+  console.log('render', persons.length, 'persons')
+
 
   const handleNameChange = (event) => {
     console.log(event.target.value)
