@@ -4,7 +4,8 @@ import React, { useState, useEffect } from 'react'
 import Filter from './components/Filter'
 import PersonForm from './components/PersonForm'
 import Display from './components/Display'
-import axios from 'axios'
+import personService from './services/persons'
+
 
 const App = () => {
   const [ persons, setPersons ] = useState([]) 
@@ -15,11 +16,10 @@ const App = () => {
 
   useEffect(() => {
     console.log('effect')
-    axios
-      .get('http://localhost:3001/persons')
-      .then(response => {
-        console.log('promise fulfilled')
-        setPersons(response.data)
+    personService
+      .getAll()
+      .then(initialPersons => {
+        setPersons(initialPersons)
       })
   }, [])
   console.log('render', persons.length, 'persons')
@@ -55,11 +55,10 @@ const addContact = (event) => {
   }
   else
   {
-    axios
-    .post('http://localhost:3001/persons', newObject)
-    .then(response => {
-      setPersons(persons.concat(response.data))
-      console.log(response.data)
+    personService
+    .create(newObject)
+    .then(returnedPerson => {
+      setPersons(persons.concat(returnedPerson))
       setNewName('')
       setNewNum('')
     })
