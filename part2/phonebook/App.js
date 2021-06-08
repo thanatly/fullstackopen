@@ -65,6 +65,14 @@ const addContact = (event) => {
   }
   }
 
+// Contact deletion
+const removeContact = (id) => {
+  //to add HTTP delete function, but print log for now
+    console.log('I want ' + id + ' to be removed')
+  }
+
+const searchResults = persons.filter(person => person.name.includes(newFilter))
+
   return (
     <div>
       <h2>Phonebook</h2>
@@ -74,10 +82,19 @@ const addContact = (event) => {
         newNum={newNum} handleNameChange={handleNameChange} handleNumChange={handleNumChange}
       />
       <h3>Numbers</h3>
-      <Display newFilter={newFilter} persons={persons}/>
+      <div>
+      <ul>
+      {searchResults.map(person=>
+        <Display
+          key={person.id} 
+          person={person} 
+          removeContact={() => removeContact(person.id)}
+        />
+      )}
+      </ul>
+      </div>
     </div>
   )
-
 }
 
 export default App

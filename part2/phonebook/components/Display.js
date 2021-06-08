@@ -1,17 +1,14 @@
 import React from 'react'
+//needs to move search to main app because we wanna pass id along??
 
 const Display = (props) => {
-	const {newFilter, persons} = props
-	
-	const searchResults = persons.filter(person => person.name.includes(newFilter))
-	return(
-	 <div>
-	  <ul>
-        {searchResults.map(person => 
-          <li key={person.name}> {person.name} {person.num} </li>
-        )}
-      </ul>
-     </div>	
+	const {person, removeContact} = props
+		
+return(
+      <div>
+        {person.name} {person.num}
+        <button onClick={removeContact}>delete</button>
+      </div>
 )
 }
 
