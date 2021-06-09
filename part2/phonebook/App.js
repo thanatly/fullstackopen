@@ -51,10 +51,23 @@ const addContact = (event) => {
 
   if (persons.map(person => person.name).includes(newName))
   {
-    window.alert(`${newName} is already added to phonebook`)
+    if(window.confirm(`${newName} is already added to phonebook, overwrite?`))
+    {
+      const updatePerson = persons.find(n => n.name === newName)
+      const updateId = updatePerson.id
+      console.log(updateId)
+
+      //Overwrite
+      personService
+      .update(updateId, newObject)
+      .then(returnedPerson => {
+        setPersons(persons.map(person => person.id !== updateId ? person : returnedPerson ))
+      })
+    }
   }
   else
   {
+    //Create
     personService
     .create(newObject)
     .then(returnedPerson => {
@@ -63,7 +76,7 @@ const addContact = (event) => {
       setNewNum('')
     })
   }
-  }
+}
 
 // Contact deletion
 const removeContact = (id) => {
@@ -77,8 +90,9 @@ const removeContact = (id) => {
         setPersons(persons.filter(person=>person.id !== id ))
       })
     }
-  }
+}
 
+// Searching
 const searchResults = persons.filter(person => person.name.includes(newFilter))
 
   return (
