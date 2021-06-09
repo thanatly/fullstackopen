@@ -67,8 +67,16 @@ const addContact = (event) => {
 
 // Contact deletion
 const removeContact = (id) => {
-  //to add HTTP delete function, but print log for now
-    console.log('I want ' + id + ' to be removed')
+
+  const delPerson = persons.find(n => n.id === id)
+
+  if (window.confirm(`Delete ${delPerson.name} ?`)){
+    personService
+    .remove(id)
+    .then(() => {
+        setPersons(persons.filter(person=>person.id !== id ))
+      })
+    }
   }
 
 const searchResults = persons.filter(person => person.name.includes(newFilter))
