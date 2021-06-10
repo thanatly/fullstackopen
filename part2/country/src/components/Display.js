@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 const Display = (props) => {
-	const {searchResults} = props
+	const {searchResults,newFilter,setNewFilter} = props
 	const length = searchResults.length	
 
 	const countryName = searchResults.map(country => country.name)
@@ -18,6 +18,7 @@ const Display = (props) => {
         <img key={country.numericCode} alt="flag" src={country.flag} width="100" height="100" />
     ))
 
+	//Display elements
 	if (length > 10)
 	{
 	  return <div>Too many, be specific</div>
@@ -28,13 +29,15 @@ const Display = (props) => {
 	  <ul>
       	{searchResults.map(wiki=>
         <li key = {wiki.numericCode}>
-         {wiki.name}
+         {wiki.name} 
+         <button onClick={() => setNewFilter(wiki.name)}>show</button>
         </li>
       	)}
       </ul>
 	  )
 	}
-	else if (length === 1)
+	else if (length === 1 
+		|| newFilter  === searchResults.filter(country => country.name))
 	{
 	  return (
 	  	<div>

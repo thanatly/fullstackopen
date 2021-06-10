@@ -30,7 +30,7 @@ const App =() => {
     <div>
       <h1>Country Wiki</h1>
       <Filter newFilter={newFilter} handleSearch={handleSearch} />
-      <Display searchResults={searchResults} />
+      <Display searchResults={searchResults} newFilter={newFilter} setNewFilter={setNewFilter}/>
     </div>
   );
 }
