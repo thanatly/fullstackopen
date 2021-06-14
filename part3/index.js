@@ -31,6 +31,11 @@ app.get('/', (request, response) => {
   response.send('<h1>Phonebook</h1>')
 })
 
+app.get('/info', (request, response) => {
+  response.send(`<div>Phonebook has info for ${persons.length} people<\div>
+    <div>${new Date()}<\div>`)
+})
+
 app.get('/api/persons', (request, response) => {
   response.json(persons)
 })
