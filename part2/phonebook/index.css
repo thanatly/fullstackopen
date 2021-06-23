@@ -11,3 +11,14 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+h2 {
+  color: pink;
+  font-style: italic;
+}
+
+.list {
+  color: grey;
+  padding-top: 5px;
+  font-size: 15px;
+}

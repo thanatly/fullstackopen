@@ -5,10 +5,10 @@ const Display = (props) => {
 	const {person, removeContact} = props
 		
 return(
-      <div>
+      <li className='list'>
         {person.name} {person.num}
         <button onClick={removeContact}>delete</button>
-      </div>
+      </li>
 )
 }
 

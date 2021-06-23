@@ -1,10 +1,9 @@
-// Fetch persons from jsondb
-
 import React, { useState, useEffect } from 'react'
 import Filter from './components/Filter'
 import PersonForm from './components/PersonForm'
 import Display from './components/Display'
 import personService from './services/persons'
+import { Success, Failure } from './components/Notification'
 
 
 const App = () => {
@@ -13,6 +12,9 @@ const App = () => {
   const [ newName, setNewName ] = useState('')
   const [ newNum, setNewNum ] = useState('')
   const [ newFilter, setNewFilter ] = useState('')
+
+  const [successMessage, setSuccessMessage] = useState(null)
+  const [errorMessage, setErrorMessage] = useState(null)
 
   useEffect(() => {
     console.log('effect')
@@ -63,6 +65,14 @@ const addContact = (event) => {
       .then(returnedPerson => {
         setPersons(persons.map(person => person.id !== updateId ? person : returnedPerson ))
       })
+      .catch(error => {
+      setErrorMessage(
+          `'${newName}' has already been removed from the derver`
+        )
+        setTimeout(() => {
+          setErrorMessage(null)
+        }, 3000) 
+      })
     }
   }
   else
@@ -74,6 +84,12 @@ const addContact = (event) => {
       setPersons(persons.concat(returnedPerson))
       setNewName('')
       setNewNum('')
+      setSuccessMessage(
+          `Added '${newName}'`
+        )
+        setTimeout(() => {
+          setSuccessMessage(null)
+        }, 3000)  
     })
   }
 }
@@ -98,6 +114,8 @@ const searchResults = persons.filter(person => person.name.includes(newFilter))
   return (
     <div>
       <h2>Phonebook</h2>
+      <Success message={successMessage} />
+      <Failure message={errorMessage} />  
       <Filter newFilter={newFilter} handleSearch={handleSearch} />
       <h3>Add a new</h3>
       <PersonForm addContact={addContact} newName={newName} 
