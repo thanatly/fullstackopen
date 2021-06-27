@@ -48,7 +48,7 @@ const addContact = (event) => {
 
   const newObject = {
     name: newName,
-    num: newNum
+    number: newNum
   }
 
   if (persons.map(person => person.name).includes(newName))
