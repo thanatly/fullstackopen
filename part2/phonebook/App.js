@@ -91,7 +91,12 @@ const addContact = (event) => {
           setSuccessMessage(null)
         }, 3000)  
     })
-  }
+    .catch(error => {
+      // this is the way to access the error message
+      console.log(error.response.data.error)
+      setErrorMessage(`'${error.response.data.error}'`)
+  })
+}
 }
 
 // Contact deletion
